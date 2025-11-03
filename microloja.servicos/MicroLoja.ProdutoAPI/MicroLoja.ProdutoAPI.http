@@ -1,0 +1,6 @@
+@MicroLoja.ProdutoAPI_HostAddress = http://localhost:5227
+
+GET {{MicroLoja.ProdutoAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
