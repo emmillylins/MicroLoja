@@ -1,22 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import PaginaPrincipal from './pages/PaginaPrincipal.vue';
+import Inicio from './pages/Inicio.vue';
+import Categoria from './pages/Categoria.vue';
 
 const routes = [
   { 
     path: '/', 
     name: 'Inicio',
-    component: PaginaPrincipal 
+    component: Inicio 
   },
   { 
     path: '/categoria/:categoriaId', 
-    name: 'ProdutosPorCategoria',
-    component: PaginaPrincipal, 
+    name: 'Categoria',
+    component: Categoria, 
     props: true 
   },
   { 
     path: '/pesquisa', 
     name: 'ResultadosPesquisa',
-    component: PaginaPrincipal, 
+    component: Inicio, 
     props: route => ({ busca: route.query.q })
   },
   { 

@@ -1,5 +1,5 @@
 <template>
-  <div class="pagina-principal">
+  <div class="inicio">
     <!-- Seção Hero/Banner -->
     <section class="hero-section bg-primary text-white py-5 mb-4">
       <div class="container">
@@ -220,11 +220,10 @@
 import { ref, onMounted, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import produtoService from '@/services/produtoService'
-import categoriaService from '@/services/categoriaService'
 import EstadoVazio from '@/components/EstadoVazio.vue'
 
 export default {
-  name: 'PaginaPrincipal',
+  name: 'PaginaInicio',
   components: {
     EstadoVazio
   },
@@ -234,7 +233,6 @@ export default {
     
     const produtos = ref([])
     const carregando = ref(true)
-    const categoriaAtual = ref(null)
     const termoPesquisa = ref('')
     const filtroPrecoMin = ref('')
     const filtroPrecoMax = ref('')
@@ -246,9 +244,6 @@ export default {
     const tituloSecao = computed(() => {
       if (termoPesquisa.value) {
         return `Resultados para "${termoPesquisa.value}"`
-      }
-      if (categoriaAtual.value) {
-        return categoriaAtual.value.nome
       }
       return 'Todos os Produtos'
     })
@@ -270,11 +265,7 @@ export default {
         let response
 
         // Determinar qual endpoint usar baseado na rota
-        if (route.params.categoriaId) {
-          response = await produtoService.obterPorCategoria(route.params.categoriaId)
-          const categoria = await categoriaService.obterPorId(route.params.categoriaId)
-          categoriaAtual.value = categoria.data
-        } else if (route.query.q) {
+        if (route.query.q) {
           termoPesquisa.value = route.query.q
           response = await produtoService.buscarPorNome(route.query.q)
         } else if (filtroPrecoMin.value || filtroPrecoMax.value) {
@@ -453,11 +444,6 @@ export default {
     }
 
     // Watchers
-    watch(() => route.params.categoriaId, () => {
-      categoriaAtual.value = null
-      carregarProdutos()
-    })
-
     watch(() => route.query.q, () => {
       carregarProdutos()
     })

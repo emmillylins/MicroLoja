@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- Navegação Principal -->
-    <Nav />
+    <Cabecalho />
     
     <!-- Conteúdo Principal -->
     <main>
@@ -93,12 +93,12 @@
 </template>
 
 <script>
-import Nav from './components/Nav.vue'
+import Cabecalho from './components/Cabecalho.vue'
 
 export default {
   name: 'App',
   components: {
-    Nav
+    Cabecalho
   }
 }
 </script>
